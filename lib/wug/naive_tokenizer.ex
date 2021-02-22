@@ -1,4 +1,5 @@
 defmodule Wug.NaiveTokenizer do
+  alias Wug.Document
   alias Wug.Token
   alias Wug.Tokenizer
 
@@ -7,11 +8,12 @@ defmodule Wug.NaiveTokenizer do
   @typep maybe_token :: Token.t() | nil
   @typep options :: Tokenizer.options()
 
-  @spec tokenize(String.t(), options()) :: [Token.t()]
-  def tokenize(text, options) do
-    graphemes = String.graphemes(text)
+  @spec tokenize(Document.t(), options()) :: Document.t()
+  def tokenize(doc, options) do
+    graphemes = String.graphemes(doc.text)
+    tokens = do_tokenize(graphemes, [], 0, nil, options)
 
-    do_tokenize(graphemes, [], 0, nil, options)
+    %{doc | tokens: tokens}
   end
 
   @spec do_tokenize(
@@ -23,7 +25,8 @@ defmodule Wug.NaiveTokenizer do
         ) :: [
           Token.t()
         ]
-  defp do_tokenize([], tokens, _index, current, _opts), do: push_token(tokens, current)
+  defp do_tokenize([], tokens, _index, current, _opts),
+    do: tokens |> push_token(current) |> Enum.reverse()
 
   defp do_tokenize([h | t], tokens, index, current, options) do
     case parse_character(h, options) do

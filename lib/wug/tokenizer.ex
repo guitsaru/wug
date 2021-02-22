@@ -1,9 +1,9 @@
 defmodule Wug.Tokenizer do
   @moduledoc false
 
-  alias Wug.Token
+  alias Wug.Document
 
   @type options :: keyword()
 
-  @callback tokenize(String.t(), options) :: [Token.t()]
+  @callback tokenize(Document.t(), options) :: Document.t()
 end

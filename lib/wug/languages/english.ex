@@ -1,13 +1,19 @@
 defmodule Wug.Languages.English do
+  alias Wug.DefaultSentencizer
   alias Wug.NaiveTokenizer
-  alias Wug.Token
+  alias Wug.Document
 
   @behaviour Wug.Language
 
   @punctuation ~w|. ? ! , ; ' " ( )|
 
-  @spec tokenize(String.t()) :: [Token.t()]
-  def tokenize(text) do
-    NaiveTokenizer.tokenize(text, punctuation: @punctuation)
+  @spec sentencize(Document.t()) :: Document.t()
+  def sentencize(doc) do
+    DefaultSentencizer.sentencize(doc)
+  end
+
+  @spec tokenize(Document.t()) :: Document.t()
+  def tokenize(doc) do
+    NaiveTokenizer.tokenize(doc, punctuation: @punctuation)
   end
 end

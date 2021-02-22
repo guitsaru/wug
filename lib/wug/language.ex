@@ -1,7 +1,8 @@
 defmodule Wug.Language do
   @moduledoc false
 
-  alias Wug.Token
+  alias Wug.Document
 
-  @callback tokenize(String.t()) :: [Token.t()]
+  @callback sentencize(Document.t()) :: Document.t()
+  @callback tokenize(Document.t()) :: Document.t()
 end

@@ -7,8 +7,6 @@ defmodule Wug.Pipe.Tokenizer do
 
   @spec call(Document.t(), keyword()) :: Document.t()
   def call(%Document{} = doc, language: language) do
-    tokens = language.tokenize(doc.text)
-
-    %{doc | tokens: tokens}
+    language.tokenize(doc)
   end
 end
