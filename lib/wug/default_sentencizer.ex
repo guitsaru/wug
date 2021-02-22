@@ -8,7 +8,10 @@ defmodule Wug.DefaultSentencizer do
 
   @spec sentencize(Document.t()) :: Document.t()
   def sentencize(doc) do
-    tokens = do_sentencize(doc.tokens, [], true)
+    tokens =
+      doc
+      |> Document.tokens()
+      |> do_sentencize([], true)
 
     %{doc | tokens: tokens}
   end

@@ -15,12 +15,16 @@ defmodule Wug.Document do
   @spec new(String.t()) :: t()
   def new(text), do: %__MODULE__{text: text}
 
+  @spec tokens(t()) :: span
+  def tokens(doc) do
+    Enum.sort_by(doc.tokens, & &1.start)
+  end
+
   @spec sentences(t()) :: [span]
   def sentences(doc) do
-    tokens = Enum.sort_by(doc.tokens, & &1.start)
-
-    Enum.chunk_while(
-      tokens,
+    doc
+    |> tokens()
+    |> Enum.chunk_while(
       [],
       fn token, acc ->
         if token.starts_sentence do
