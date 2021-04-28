@@ -27,7 +27,7 @@ defmodule Wug.Document do
     |> Enum.chunk_while(
       [],
       fn token, acc ->
-        if token.starts_sentence do
+        if token.starts_sentence && Enum.any?(acc) do
           {:cont, Enum.reverse(acc), [token]}
         else
           {:cont, [token | acc]}

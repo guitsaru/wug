@@ -1,13 +1,14 @@
 defmodule Wug.Pipe do
   @moduledoc false
 
-  alias Wug.Document
+  alias Wug.Pipeline
 
+  @type t :: module()
   @typep options :: keyword()
 
-  @callback call(Document.t(), options) :: Document.t()
+  @callback call(Pipeline.t(), options) :: Pipeline.t()
 
-  defmacro __using__(_module) do
+  defmacro __using__(_opts) do
     quote do
       @behaviour Wug.Pipe
     end
