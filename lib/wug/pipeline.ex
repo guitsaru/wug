@@ -68,7 +68,7 @@ defmodule Wug.Pipeline do
 
   defmacro pipe(pipe, opts \\ []) do
     quote location: :keep do
-      @pipes {unquote(pipe), unquote(opts)}
+      @pipes {unquote(pipe), unquote(Macro.escape(opts))}
     end
   end
 end
