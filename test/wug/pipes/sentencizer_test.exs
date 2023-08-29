@@ -2,7 +2,6 @@ defmodule Wug.Pipes.SentencizerTest do
   use ExUnit.Case, async: true
 
   alias Wug.Document
-  alias Wug.Languages.English
   alias Wug.Pipeline
   alias Wug.Pipes.Sentencizer
   alias Wug.Pipes.Tokenizer
@@ -12,8 +11,8 @@ defmodule Wug.Pipes.SentencizerTest do
       pipeline =
         ""
         |> make_pipeline()
-        |> Tokenizer.call(language: English)
-        |> Sentencizer.call(language: English)
+        |> Tokenizer.call(language: TestLanguage)
+        |> Sentencizer.call(language: TestLanguage)
 
       assert pipeline.doc |> Document.sentences() |> Enum.count() == 0
     end
@@ -22,8 +21,8 @@ defmodule Wug.Pipes.SentencizerTest do
       pipeline =
         "This is a test. This is still a test. No, really, this is a test"
         |> make_pipeline()
-        |> Tokenizer.call(language: English)
-        |> Sentencizer.call(language: English)
+        |> Tokenizer.call(language: TestLanguage)
+        |> Sentencizer.call(language: TestLanguage)
 
       assert pipeline.doc |> Document.sentences() |> Enum.count() == 3
     end

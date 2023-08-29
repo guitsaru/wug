@@ -2,7 +2,6 @@ defmodule Wug.Pipes.PipelineTest do
   use ExUnit.Case, async: true
 
   alias Wug.Document
-  alias Wug.Languages.English
   alias Wug.Pipes.Sentencizer
   alias Wug.Pipes.Tokenizer
 
@@ -11,13 +10,13 @@ defmodule Wug.Pipes.PipelineTest do
   end
 
   defmodule TokenizerPipeline do
-    use Wug.Pipeline, language: English
+    use Wug.Pipeline, language: TestLanguage
 
     pipe Tokenizer
   end
 
   defmodule SentencizerPipeline do
-    use Wug.Pipeline, language: English
+    use Wug.Pipeline, language: TestLanguage
 
     pipe Tokenizer
     pipe Sentencizer

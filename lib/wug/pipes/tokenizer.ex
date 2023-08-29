@@ -6,8 +6,11 @@ defmodule Wug.Pipes.Tokenizer do
   alias Wug.Pipeline
 
   @spec call(Pipeline.t(), keyword()) :: Document.t()
-  def call(%Pipeline{} = pipeline, language: language) do
-    doc = language.tokenize(pipeline.doc)
+  def call(%Pipeline{} = pipeline, opts) do
+    language = Keyword.fetch!(opts, :language)
+    opts = Keyword.delete(opts, :language)
+
+    doc = language.tokenize(pipeline.doc, opts)
 
     %{pipeline | doc: doc}
   end

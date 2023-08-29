@@ -5,6 +5,6 @@ defmodule Wug.Language do
 
   @type t :: module()
 
-  @callback sentencize(Document.t()) :: Document.t()
-  @callback tokenize(Document.t()) :: Document.t()
+  @callback sentencize(Document.t(), Keyword.t()) :: Document.t()
+  @callback tokenize(Document.t(), Keyword.t()) :: Document.t()
 end
